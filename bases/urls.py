@@ -15,7 +15,17 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from django.conf.urls import url, include
+from django.contrib.auth.views import logout_then_login
+
+from plataforma.views import index_bases, login_user_bases, panel_bases
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+
+    path('plataforma/', index_bases, name='index_bases'),
+    path('bases/login/', login_user_bases, name='bases_login'),
+    path('panel/bases/', panel_bases, name='panel_bases'),
+    url(r'^logout/bases/$', logout_then_login,
+        {'next_page': '/plataforma'}, name='logout_bases'),
 ]
